@@ -6,6 +6,7 @@ load data/hart/tslabels.dat     # Etiquetas test
 
 N = rows(tr);
 
+# El tipo de kernel "-t 2" corresponde al tipo "one-class SVM"
 # Res es un tipo estructurado que contiene, entre otros:
 #   los parámetros del modelo
 #   los ı́ndices de los vectores que han resultado ser vectores soporte
