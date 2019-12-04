@@ -27,4 +27,4 @@ plot(tr(trlabels==1,1),
      tr(trlabels==2,1),
      tr(trlabels==2,2),"s","markersize",8,"markerfacecolor","r",
      tr(vectores_soporte,1),
-     tr(vectores_soporte,2),"og","markersize",16);
+     tr(vectores_soporte,2),"og","markersize",16,"linewidth", 2);
