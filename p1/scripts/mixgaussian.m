@@ -22,16 +22,16 @@ pc=histc(xl,classes)/N;
 % Initialization of mixture of gaussians based on parameter initialization
 sigma=cell(C,K);
 for c=classes'
-  ic=find(c==classes);
+  ic=find(c==classes); % fila a la que corresponde la clase c
   % Initialization of component priors p(k|c) as uniform distro
-  pkGc{ic}(1:K)=1/K;
+  pkGc{ic}(1:K)=1/K; % Inicializar la probabilidad condicionada. Equivaldría a la probabilidad de que un dato de la clase c se haya generado con la distrib k.
   % Initialization of K component means mu_kc as K random samples from class c
-  idc=find(xl==c);
-  Nc=rows(idc);
-  mu{ic}=X(idc(randperm(Nc,K)),:)';
+  idc=find(xl==c); % Sacar el índice de las muestras de clase c
+  Nc=rows(idc); % sacar núm elem de la clase c
+  mu{ic}=X(idc(randperm(Nc,K)),:)'; % cálculo de la media de la clase c.
   % Initialization of K component covariance sigma_kc 
   % as K class covariance matrix divided by the number of components K 
-  sigma(ic,1:K)=cov(X(idc,:),1)/K;
+  sigma(ic,1:K)=cov(X(idc,:),1)/K; % Creación de matriz de covar.
 end
 
 % Convergence condition to stop EM
@@ -45,15 +45,15 @@ do
   oL=L;L=0;
 
   % For each class	  
-  for c=classes'
+  for c=classes' % classes es un vector tipo [1,2,3,...,C] de las distintas clases que hay
     % E step: Estimate zk
-    ic=find(c==classes);
-    idc=find(xl==c);
-    Nc=rows(idc);
-    Xc=X(idc,:);
+    ic=find(c==classes); % Encontrar qué fila corresponde a la clase c
+    idc=find(xl==c); % Cogemos los índices de dónde están las muestras de la clase c
+    Nc=rows(idc); % Sacar núm muestras de clase c
+    Xc=X(idc,:); % Sacar muestras de la clase c
     zk=[];
     for k=1:K
-      zk(:,k)=compute_zk(ic,k,pkGc,mu,sigma,Xc);
+      zk(:,k)=compute_zk(ic,k,pkGc,mu,sigma,Xc); % ic = fila| k = distribución | 
     end
     % Robust computation of znk and log-likelihood
     maxzk=max(zk,[],2);
@@ -62,8 +62,27 @@ do
     zk=zk./sumzk;
     L=L+Nc*log(pc(ic))+sum(maxzk+log(sumzk));
 
+    %**************************
     % M step: parameter update
-    % HERE YOUR CODE FOR PARAMETER ESTIMATION
+    %**************************
+
+    % cálculo de Pck(t+1):
+    pkGc{ic} = (1/Nc) * sum(zk);
+
+    % cálculo de muCk(t+1):
+    mu{ic} = (Xc'*zk) ./ sum(zk);
+
+    % cálculo sigma ck(t+1):
+    for k=1:K
+      XcmenosMedia = (Xc - mu{ic}(:,k)');
+
+      sigmaAux = (((zk(:,k) .* XcmenosMedia)' * XcmenosMedia) ) ./ sum(zk(:,k));
+
+      % Suavizado de la matriz
+      sigmaAux = alpha * sigmaAux + (1-alpha)*eye(columns(Xc));
+      sigma{ic,k} = sigmaAux;
+
+    end  
 
   end
   % Likelihood divided by the number of training samples

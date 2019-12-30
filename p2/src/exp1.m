@@ -1,3 +1,4 @@
+#!/usr/bin/octave -qf
 # Cargamos los datos de test y entrenamiento
 load data/hart/tr.dat;          # Muestras entrenamiento
 load data/hart/trlabels.dat;    # Etiquetas entrenamiento
@@ -16,9 +17,9 @@ res = svmtrain(trlabels, tr, '-t 2 -c 1');
 # Representación gráfica de las muestras que nos permite observar 
 # que no son linealmente separables
 plot(tr(trlabels==1,1),
-tr(trlabels==1,2),"x",
-tr(trlabels==2,1),
-tr(trlabels==2,2),"s");
+	tr(trlabels==1,2),"x",
+	tr(trlabels==2,1),
+	tr(trlabels==2,2),"s");
 pause(2);
 
 # Representación gráfica de las muestras junto a los vectores soporte
@@ -28,6 +29,7 @@ plot(tr(trlabels==1,1),
      tr(trlabels==2,2),"s",
      tr(res.sv_indices,1),
      tr(res.sv_indices,2),"dg","markersize",8,"markerfacecolor","g");
+pause(2);
 
 # Calculo de la probabilidad empirica de error
 # Empleando las etiquetas predichas

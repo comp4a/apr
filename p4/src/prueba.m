@@ -5,4 +5,4 @@ grafo(C,[R S]) = 1;
 grafo(R,W)= 1;
 grafo(S,W)= 1;
 
-#draw_graph(grafo);
+draw_graph(grafo);

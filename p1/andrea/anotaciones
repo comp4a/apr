@@ -1,0 +1,29 @@
+multinomial error mejor de 16.36% +-	no se entrega
+gaussiano cuando alfa 1.0 error 14.28	hacer grafica de pca con error
+	probar varios alfa para ver como influye
+
+el barrido de la p1 de per pero en vez de llamar a vecinos llamar a la gaussiana correspondiente
+
+5.1
+implementar las ecuaciones
+5-6 lineas como mucho
+
+pagina web de mnist 	40pca + quatric classifier
+			linear classifier 1
+
+eq10
+sumar por columnas para calcular sobre n
+PkGc=sum(Zk)/Nc;
+
+Zk = n x k cuanto hay de esa muestra en esa componente n=1 0.1k1 0.2k2...
+	pesos
+eq11 sumatorio del producto de cada muestra por la muestra ponderada y luego normalizar
+	sumatorio de escalar por vector
+	Xc=matriz n x D muestras por dimensiones cada fila es un dato
+	media ponderada
+
+eq12	sí que hace falta gastar bucle
+	sigma matriz de celdas, cada elemento es una matriz
+		numero clases por numero de componentes, y cada elemento es una matriz de covarianzas
+	un bucle por cada componente
+
