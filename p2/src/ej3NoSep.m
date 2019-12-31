@@ -42,8 +42,8 @@ plot(   val_x, recta,"color","black",
         val_x, recta_margen2,"color","black","linestyle","--",
         tr(trlabels==1, 1), tr(trlabels==1, 2), "o","markersize",8,"markerfacecolor","r","markeredgecolor","r",
         tr(trlabels==2, 1), tr(trlabels==2, 2), "o","markersize",8,"markerfacecolor","b","markeredgecolor","b",
-        tr(res.sv_indices, 1), tr(res.sv_indices, 2), "o","markeredgecolor","black","markersize",10,
-        tr(toler!=0,1),tr(toler!=0,2),"*","markeredgecolor","black","markersize",10
+        tr(res.sv_indices, 1), tr(res.sv_indices, 2), "o","markeredgecolor","black","markersize",12,
+        tr(toler!=0,1),tr(toler!=0,2),"*","markeredgecolor","black","markersize",12
 );
 
 for i = 1:rows(tr)
